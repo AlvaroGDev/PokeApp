@@ -1,44 +1,49 @@
 <div class="flex flex-col items-center gap-4 p-4">
-  <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" (click)="randomizePokemon()">
-      Randomize
+  <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
+    (click)="randomizePokemon()">
+    Randomize
   </button>
 
   <ng-container *ngIf="pokemon">
-      <!-- Nombre e imagen del pokémon -->
+    <!-- Nombre e imagen del pokémon -->
 
-      <p *ngIf="pokemon">{{ pokemon.name | uppercase }}</p>
-      <img *ngIf="pokemon" [src]="pokemon.sprites.front_default" alt="{{ pokemon.name }}" />
+    <p *ngIf="pokemon">{{ pokemon.name | uppercase }}</p>
+    <img *ngIf="pokemon" [src]="pokemon.sprites.front_default" alt="{{ pokemon.name }}" />
 
-      <button (click)="anadirPokemon(pokemon)"
-          class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full"
-          [disabled]="equipoPokemon.length >= 6">
-          Add</button>
-      <p *ngIf="pokemon.types.length == 2"> Types: {{pokemon.types[0].type.name}}/{{pokemon.types[1].type.name}}</p>
-      <p *ngIf="pokemon.types.length == 1"> Type: {{pokemon.types[0].type.name}}</p>
+    <button (click)="anadirPokemon(pokemon)"
+      class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full"
+      [disabled]="equipoPokemon.length >= 6">
+      Add</button>
+    <div class="flex justify-center gap-1 mt-1">
+      <span *ngFor="let type of pokemon.types" class="px-2 py-1 bg-gray-200 rounded text-xs capitalize">
+        {{ type.type.name }}
+      </span>
+    </div>
 
   </ng-container>
 
   <div class="flex gap-4 p-4 overflow-x-auto justify-center">
 
-      <div *ngFor="let pokemon of equipoPokemon"
-          class="bg-white rounded-lg border-2 border-gray-200 p-3 min-w-[150px] text-center">
-          <img [src]="pokemon.sprites.front_default" [alt]="pokemon.name" class="w-16 h-16 mx-auto">
-          <h3 class="font-bold capitalize mt-2">{{ pokemon.name }}</h3>
-          <button (click)="eliminarPokemon(equipoPokemon.indexOf(pokemon))"
-              class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full">Delete</button>
-      </div>
+    <div *ngFor="let pokemon of equipoPokemon"
+      class="bg-white rounded-lg border-2 border-gray-200 p-3 min-w-[150px] text-center">
+      <img [src]="pokemon.sprites.front_default" [alt]="pokemon.name" class="w-16 h-16 mx-auto">
+      <h3 class="font-bold capitalize mt-2">{{ pokemon.name }}</h3>
+      <button (click)="eliminarPokemon(equipoPokemon.indexOf(pokemon))"
+        class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full">Delete</button>
+    </div>
   </div>
 
   <ng-container *ngIf="equipoPokemon.length == 6">
-      <p>Optional: Give your team a name</p>
-      <input type="text" [(ngModel)]="team.name" placeholder="Team name" class="border p-2 rounded mb-2" />
-      <button (click)="guardarEquipo(team.name, equipoPokemon)"> Save</button>
+    <p>Optional: Give your team a name</p>
+    <input type="text" [(ngModel)]="team.name" placeholder="Team name" class="border p-2 rounded mb-2" />
+    <button (click)="guardarEquipo(team.name, equipoPokemon)"> Save</button>
   </ng-container>
 </div>
 
 <!-- Equipos guardados: cada equipo es una tarjeta y sus pokémon se muestran en fila -->
 <div class="flex flex-col gap-4 p-4 items-center">
-  <div *ngFor="let team of teamList" class="bg-white rounded-lg border-2 border-gray-200 p-3 min-w-[320px] max-w-xl w-full">
+  <div *ngFor="let team of teamList"
+    class="bg-white rounded-lg border-2 border-gray-200 p-3 min-w-[320px] max-w-xl w-full">
     <h4 class="font-bold text-lg mb-2 text-center">{{ team.name }}</h4>
     <div class="flex items-center justify-center gap-3 overflow-x-auto">
       <div *ngFor="let pokemon of team.pokemons" class="min-w-[80px] text-center">

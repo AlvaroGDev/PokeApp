@@ -9,9 +9,13 @@ import { PokemonTeamsComponent } from './components/pokemon-teams/pokemon-teams.
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 
+import { environment } from '../environments/environment';
+import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
+import { getFirestore, provideFirestore } from '@angular/fire/firestore';
+
 @NgModule({
   declarations: [
-    AppComponent, 
+    AppComponent,
     PokemonRandomizerComponent,
     PokemonTeamsComponent
   ],
@@ -20,9 +24,10 @@ import { FormsModule } from '@angular/forms';
     AppRoutingModule,
     HttpClientModule,
     RouterModule,
-    FormsModule
-  ],
-  providers: [],
+    FormsModule],
+  providers: [
+    provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
+  provideFirestore(() => getFirestore())],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
