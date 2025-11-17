@@ -15,7 +15,7 @@
       [disabled]="equipoPokemon.length >= 6">
       Add</button>
     <div class="flex justify-center gap-1 mt-1">
-      <span *ngFor="let type of pokemon.types" class="px-2 py-1 bg-gray-200 rounded text-xs capitalize">
+      <span *ngFor="let type of pokemon.types" [class]="utilitiesService.getTypeColor(type.type.name) + ' px-3 py-2 rounded text-s capitalize'">
         {{ type.type.name }}
       </span>
     </div>
@@ -29,7 +29,7 @@
       <img [src]="pokemon.sprites.front_default" [alt]="pokemon.name" class="w-16 h-16 mx-auto">
       <h3 class="font-bold capitalize mt-2">{{ pokemon.name }}</h3>
       <button (click)="eliminarPokemon(equipoPokemon.indexOf(pokemon))"
-        class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full">Delete</button>
+        class="bg-red-600 hover:bg-red-700 text-white font-bold py-1 px-4 rounded-full mt-3">X</button>
     </div>
   </div>
 

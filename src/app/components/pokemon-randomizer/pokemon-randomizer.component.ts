@@ -3,6 +3,8 @@ import { PokemonService } from '../../services/pokemon.service';
 import { Pokemon } from '../../models/pokemon.interface';
 import { PokemonTeam } from '../../models/pokemon-team.interface';
 import { FirestoreService } from '../../services/firestore.service';
+import { doc } from '@firebase/firestore';
+import { UtilitiesService } from '../../services/utilities.service';
 
 
 @Component({
@@ -13,13 +15,16 @@ import { FirestoreService } from '../../services/firestore.service';
 export class PokemonRandomizerComponent {
 
   pokemon: Pokemon | null = null;
-  team: PokemonTeam = { id: 0, name: '', pokemons: [] };
+  team: PokemonTeam = {id: '', name: '', pokemons: [] };
  
 
   equipoPokemon: Pokemon[] = [];
   teamList: PokemonTeam[] = [];
 
-  constructor(private pokemonService: PokemonService, private firestoreService: FirestoreService) { }
+  constructor(
+    private pokemonService: PokemonService, 
+    private firestoreService: FirestoreService, 
+    public utilitiesService: UtilitiesService) { }
 
   ngOnInit() {
     this.randomizePokemon();
@@ -46,26 +51,19 @@ export class PokemonRandomizerComponent {
   }
 
   async guardarEquipo(nombreEquipo: string, equipo: Pokemon[]) {
-    this.team = { id: 1, name: nombreEquipo, pokemons: equipo };
+
+    this.team = {id: '',name: nombreEquipo, pokemons: equipo };
     this.teamList.push(this.team);
+
     try {
       await this.firestoreService.guardarEquipo(this.team);
       console.log('Equipo guardado en Firestore');
+
     } catch (error) {
       console.error('Error al guardar el equipo en Firestore:', error);
     }
     this.equipoPokemon = [];
-    this.team = { id: 0, name: '', pokemons: [] };
+    this.team = { id: '', name: '', pokemons: [] };
   }
-
-  async cargarEquipos() {
-
-    try {
-      this.teamList = await this.firestoreService.obtenerEquipos() as PokemonTeam[];
-      console.log('Equipos cargados desde Firestore');
-    } catch (error) {
-      console.error('Error al cargar los equipos desde Firestore:', error);
-    }
-}
 
 }

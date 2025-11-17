@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FirestoreService } from '../../services/firestore.service';
 import { PokemonTeam } from '../../models/pokemon-team.interface';
+import { UtilitiesService } from '../../services/utilities.service';
 
 @Component({
   selector: 'app-pokemon-teams',
@@ -12,7 +13,7 @@ export class PokemonTeamsComponent implements OnInit {
 
   teamList: PokemonTeam[] = [];
 
-  constructor(private firestoreService: FirestoreService) { }
+  constructor(private firestoreService: FirestoreService, public utilitiesService: UtilitiesService) { }
 
   async ngOnInit() {
   await this.cargarEquipos();
@@ -24,6 +25,16 @@ export class PokemonTeamsComponent implements OnInit {
       console.log('Equipos cargados desde Firestore');
     } catch (error) {
       console.error('Error al cargar los equipos desde Firestore:', error);
+    }
+  }
+
+  async eliminarEquipo(id: string) {
+    try {
+      await this.firestoreService.eliminarEquipo(id);
+      console.log('Equipo eliminado de Firestore');
+      await this.cargarEquipos(); // Recargar la lista de equipos después de eliminar
+    } catch (error) {
+      console.error('Error al eliminar el equipo de Firestore:', error);
     }
   }
 
