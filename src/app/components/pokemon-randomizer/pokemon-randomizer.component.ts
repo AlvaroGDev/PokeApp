@@ -36,7 +36,9 @@ export class PokemonRandomizerComponent {
       this.pokemon = {
         id: pokemonData.id,
         name: pokemonData.name,
-        sprites: pokemonData.sprites,
+        sprites: {
+          front_default: pokemonData.sprites.front_default
+        },
         types: pokemonData.types
       };
     });
@@ -44,6 +46,7 @@ export class PokemonRandomizerComponent {
 
   anadirPokemon(pokemon: Pokemon) {
     this.equipoPokemon.push(pokemon);
+    this.randomizePokemon();
   }
 
   eliminarPokemon(index: number) {
@@ -57,6 +60,7 @@ export class PokemonRandomizerComponent {
 
     try {
       await this.firestoreService.guardarEquipo(this.team);
+      this.randomizePokemon();
       console.log('Equipo guardado en Firestore');
 
     } catch (error) {

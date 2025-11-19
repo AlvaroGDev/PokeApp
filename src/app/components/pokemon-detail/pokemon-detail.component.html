@@ -1,0 +1,40 @@
+<div *ngIf="pokemon" class="p-6 bg-white rounded-lg border-2 border-gray-200 max-w-xl mx-auto">
+  <h2 class="text-3xl font-bold mb-4 text-center capitalize">{{ pokemon.name }}</h2>
+
+  <div class="flex flex-col items-center">
+    <img [src]="pokemon.sprites.front_default" [alt]="pokemon.name" class="w-32 h-32 mb-4">
+
+
+    <div class="flex flex-wrap justify-center gap-2 mb-4">
+      <span *ngFor="let type of pokemon.types"
+            [class]="utilitiesService.getTypeColor(type.type.name) + ' px-3 py-2 rounded text-xs capitalize'">
+        {{ type.type.name }}
+      </span>
+    </div>
+
+
+    <div class="px-3 py-2 rounded text-xs bg-gray-200 mb-4">
+      Weight: {{formatearPeso( pokemon.weight) }}Kg
+    </div>
+
+    <!-- Abilities: centred in one row with small boxes -->
+    <div class="w-full flex flex-col items-center mb-4">
+      <h3 class="text-lg font-semibold mb-2 text-center">Abilities</h3>
+      <div class="flex flex-row flex-wrap justify-center gap-3">
+        <span *ngFor="let ability of pokemon.abilities" class="px-3 py-1 bg-gray-100 border border-gray-200 rounded-md text-sm capitalize">
+          {{ ability.ability.name }}
+        </span>
+      </div>
+    </div>
+
+    <!-- Stats -->
+    <div class="w-full">
+      <h3 class="text-xl font-bold mb-2">Stats</h3>
+      <ul>
+        <li *ngFor="let stat of pokemon.stats" class="mb-1 flex items-center gap-2">
+          <strong class="capitalize">{{ stat.stat.name }}:</strong> {{ stat.base_stat }} <div [style.width.px]="stat.base_stat" class="h-5 bg-blue-200 rounded" ></div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

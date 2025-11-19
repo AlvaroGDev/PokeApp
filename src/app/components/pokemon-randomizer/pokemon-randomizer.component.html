@@ -14,7 +14,7 @@
       class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full"
       [disabled]="equipoPokemon.length >= 6">
       Add</button>
-    <div class="flex justify-center gap-1 mt-1">
+    <div class="flex flex-wrap justify-center gap-1 mt-2">
       <span *ngFor="let type of pokemon.types" [class]="utilitiesService.getTypeColor(type.type.name) + ' px-3 py-2 rounded text-s capitalize'">
         {{ type.type.name }}
       </span>
@@ -28,6 +28,11 @@
       class="bg-white rounded-lg border-2 border-gray-200 p-3 min-w-[150px] text-center">
       <img [src]="pokemon.sprites.front_default" [alt]="pokemon.name" class="w-16 h-16 mx-auto">
       <h3 class="font-bold capitalize mt-2">{{ pokemon.name }}</h3>
+      <div class="flex flex-wrap justify-center gap-1 mt-2">
+        <span *ngFor="let type of pokemon.types" [class]="utilitiesService.getTypeColor(type.type.name) + ' px-3 py-2 rounded text-xs capitalize'">
+          {{ type.type.name }}
+        </span>
+      </div>
       <button (click)="eliminarPokemon(equipoPokemon.indexOf(pokemon))"
         class="bg-red-600 hover:bg-red-700 text-white font-bold py-1 px-4 rounded-full mt-3">X</button>
     </div>
@@ -36,17 +41,17 @@
   <ng-container *ngIf="equipoPokemon.length == 6">
     <p>Optional: Give your team a name</p>
     <input type="text" [(ngModel)]="team.name" placeholder="Team name" class="border p-2 rounded mb-2" />
-    <button (click)="guardarEquipo(team.name, equipoPokemon)"> Save</button>
+    <button class="bg-green-600 hover:bg-green-700 text-white font-bold py-1 px-4 rounded-full mt-3" (click)="guardarEquipo(team.name, equipoPokemon)"> Save</button>
   </ng-container>
 </div>
 
 <!-- Equipos guardados: cada equipo es una tarjeta y sus pokémon se muestran en fila -->
 <div class="flex flex-col gap-4 p-4 items-center">
-  <div *ngFor="let team of teamList"
+  <div *ngIf="teamList.length > 0"
     class="bg-white rounded-lg border-2 border-gray-200 p-3 min-w-[320px] max-w-xl w-full">
-    <h4 class="font-bold text-lg mb-2 text-center">{{ team.name }}</h4>
+    <h4 class="font-bold text-lg mb-2 text-center">{{ teamList[teamList.length - 1].name }}</h4>
     <div class="flex items-center justify-center gap-3 overflow-x-auto">
-      <div *ngFor="let pokemon of team.pokemons" class="min-w-[80px] text-center">
+      <div *ngFor="let pokemon of teamList[teamList.length - 1].pokemons" class="min-w-[80px] text-center">
         <img [src]="pokemon.sprites.front_default" alt="{{pokemon.name}}" class="w-16 h-16 mx-auto">
         <div class="capitalize text-sm mt-1">{{ pokemon.name }}</div>
       </div>

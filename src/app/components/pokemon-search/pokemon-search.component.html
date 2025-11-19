@@ -1,0 +1,8 @@
+<input type="text" class="border p-2 rounded w-full" [(ngModel)]="filtro" (input)="filtrarPokemon(filtro)" placeholder="Search Pokémon by name" />
+
+
+<div *ngFor="let pokemon of pokemonFiltrado" class="border-b p-2 cursor-pointer hover:bg-gray-100 flex items-center gap-4"
+(click)="verDetalle(pokemon.id)">
+  <p > #{{ pokemon.id }} {{ pokemon.name | uppercase }}</p>
+</div>
+

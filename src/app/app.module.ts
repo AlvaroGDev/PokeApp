@@ -12,12 +12,16 @@ import { FormsModule } from '@angular/forms';
 import { environment } from '../environments/environment';
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
+import { PokemonSearchComponent } from './components/pokemon-search/pokemon-search.component';
+import { PokemonDetailComponent } from './components/pokemon-detail/pokemon-detail.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     PokemonRandomizerComponent,
-    PokemonTeamsComponent
+    PokemonTeamsComponent,
+    PokemonSearchComponent,
+    PokemonDetailComponent
   ],
   imports: [
     BrowserModule,

@@ -25,7 +25,7 @@ export class UtilitiesService {
     'poison': 'bg-purple-700 text-white',
     'ground': 'bg-yellow-600 text-white',
     'rock': 'bg-yellow-800 text-white',
-    'bug': 'bg-green-900 text-white',
+    'bug': 'bg-green-700 text-white',
     'ghost': 'bg-purple-700 text-white',
     'steel': 'bg-gray-500 text-white'
   };

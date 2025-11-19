@@ -12,6 +12,10 @@ export class PokemonService {
   private apiUrl = 'https://pokeapi.co/api/v2/pokemon/';
 
   getPokemon(id: number){
-    return this.httpClient.get<Pokemon>(`https://pokeapi.co/api/v2/pokemon/${id}`);
+    return this.httpClient.get<Pokemon>(`${this.apiUrl}${id}`);
+  }
+
+  getallPokemon(){
+    return this.httpClient.get<Pokemon[]>(`${this.apiUrl}?limit=100000&offset=0`);
   }
 }
