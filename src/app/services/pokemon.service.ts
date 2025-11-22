@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Pokemon } from '../models/pokemon.interface';
+import { Pokemon } from '../utils/models/pokemon.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +13,10 @@ export class PokemonService {
 
   getPokemon(id: number){
     return this.httpClient.get<Pokemon>(`${this.apiUrl}${id}`);
+  }
+
+  getPokemonByType(type: string){
+    return this.httpClient.get<Pokemon>(`https://pokeapi.co/api/v2/type/${type}`);
   }
 
   getallPokemon(){

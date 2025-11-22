@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Firestore, collection, addDoc, getDocs, deleteDoc, doc } from '@angular/fire/firestore';
-import { PokemonTeam } from '../models/pokemon-team.interface';
+import { PokemonTeam } from '../utils/models/pokemon-team.interface';
 
 
 @Injectable({

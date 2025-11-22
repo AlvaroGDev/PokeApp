@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -32,5 +33,18 @@ export class UtilitiesService {
   
   return colors[type] || 'bg-gray-200 text-gray-800';
 } 
+
+obtenerColorStat(statName: string): string {
+  const colors: { [key: string]: string } = {
+    'hp': 'bg-red-500',           // HP - Rojo
+    'attack': 'bg-orange-500',    // Ataque - Naranja
+    'defense': 'bg-blue-500',     // Defensa - Azul
+    'special-attack': 'bg-purple-500',  // Ataque Especial - Morado
+    'special-defense': 'bg-green-500',  // Defensa Especial - Verde
+    'speed': 'bg-yellow-500'      // Velocidad - Amarillo
+  };
+  
+  return colors[statName] || 'bg-gray-500';
+}
 
 }

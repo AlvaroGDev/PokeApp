@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FirestoreService } from '../../services/firestore.service';
-import { PokemonTeam } from '../../models/pokemon-team.interface';
+import { PokemonTeam } from '../../utils/models/pokemon-team.interface';
 import { UtilitiesService } from '../../services/utilities.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-pokemon-teams',
@@ -13,7 +14,7 @@ export class PokemonTeamsComponent implements OnInit {
 
   teamList: PokemonTeam[] = [];
 
-  constructor(private firestoreService: FirestoreService, public utilitiesService: UtilitiesService) { }
+  constructor(private firestoreService: FirestoreService, public utilitiesService: UtilitiesService, public router: Router) { }
 
   async ngOnInit() {
   await this.cargarEquipos();
@@ -35,6 +36,14 @@ export class PokemonTeamsComponent implements OnInit {
       await this.cargarEquipos(); // Recargar la lista de equipos después de eliminar
     } catch (error) {
       console.error('Error al eliminar el equipo de Firestore:', error);
+    }
+  }
+
+  goToPokemonDetail(pokemonId: number) {
+    if (pokemonId) {
+      this.router.navigate(['/pokemon', pokemonId]);
+    } else {
+      console.warn('Pokemon ID is undefined');
     }
   }
 
